@@ -2,7 +2,7 @@
  "schema": 1,
  "version": 1,
  "generated_at": "2026-11-15T10:53:21Z",
- "checked_at": "2026-11-15T10:59:50Z",
+ "checked_at": "2026-11-15T23:49:51Z",
  "min_app_version": 1,
  "default_favourites": [
   "era-fm",
@@ -1458,10 +1458,10 @@
    "votes": 3,
    "uuid": "21040bce-180b-4479-9f9b-ef71e4285d89",
    "fm": null,
-   "status": "ok",
+   "status": "failing",
    "hidden": false,
    "last_ok": "2026-11-15",
-   "fail_count": 0
+   "fail_count": 1
   },
   {
    "id": "ikimfm",
