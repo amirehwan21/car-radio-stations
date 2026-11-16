@@ -10,6 +10,11 @@ Rules (car-launcher PROJECT_PLAN §6.5):
 - Every http:// URL whose https:// copy passes gets that copy put just before it: Android apps
   block plain http by default (seen on the head unit in car-launcher 0.3.2), older app versions
   included, so https comes first wherever a station offers it.
+- A revma direct stream (stream.rcs.revma.com/<id>) gets its HLS twin (<id>/hls.m3u8) when that
+  passes: first if the direct stream is slow to start (the app gives a URL 8 s to start; Fly FM's
+  direct stream often sent nothing for 8 s while its HLS segments came in 1.5 s), else as a fallback.
+- Logos must be https: an http favicon is switched to https if that serves an image, else removed
+  (the app then shows its default radio icon).
 - Stations marked "check": "geo" are skipped (streams that refuse non-Malaysian IPs).
 - If more than 20 % of tested stations fail, nothing is written (network or checker problem) and
   the exit code is 2.
@@ -175,6 +180,57 @@ def prefer_https(s):
     return added
 
 
+START_BYTES = 16 * 1024
+START_SECONDS = 6
+REVMA_DIRECT = re.compile(r"https://stream\.rcs\.revma\.com/[a-z0-9]+$")
+
+
+def starts_fast(url, tries=2):
+    """True if every try delivers START_BYTES within START_SECONDS: what a player needs to start."""
+    for _ in range(tries):
+        try:
+            with http_get(url, {"Icy-MetaData": "1"}) as r:
+                if read_up_to(r, START_BYTES, time.monotonic() + START_SECONDS) < START_BYTES:
+                    return False
+        except Exception:
+            return False
+    return True
+
+
+def prefer_revma_hls(s):
+    """Adds the HLS twin of a revma direct URL (see the rules above). Returns a note, or None."""
+    for u in s["urls"]:
+        hls = u + "/hls.m3u8"
+        if not REVMA_DIRECT.match(u) or hls in s["urls"] or not test_url(hls, "hls")[0]:
+            continue
+        i = s["urls"].index(u)
+        if starts_fast(u):
+            s["urls"].insert(i + 1, hls)
+            return f"HLS fallback added: {hls}"
+        s["urls"].insert(i, hls)
+        if i == 0:
+            s["format"] = "hls"
+        return f"slow direct stream, HLS first: {hls}"
+    return None
+
+
+def secure_logo(s):
+    """Logos over http could be swapped on the way (security review, car-launcher 0.3.3)."""
+    logo = s.get("favicon") or ""
+    if not logo.startswith("http://"):
+        return None
+    https = "https://" + logo[len("http://"):]
+    try:
+        with http_get(https) as r:
+            if r.status == 200 and (r.headers.get("Content-Type") or "").lower().startswith("image/"):
+                s["favicon"] = https
+                return f"logo now https: {https}"
+    except Exception:
+        pass
+    s["favicon"] = None
+    return "http-only logo removed"
+
+
 def check_station(s):
     """Returns (station_after, outcome, detail). outcome: ok | repaired | failing | hidden | skipped."""
     s = copy.deepcopy(s)
@@ -183,12 +239,13 @@ def check_station(s):
         return s, "skipped", "geo-restricted, not tested"
     reasons = []
     https = prefer_https(s)
+    notes = [n for n in (prefer_revma_hls(s), secure_logo(s)) if n]
     for url in s["urls"]:
         ok, why = test_url(url, s.get("format"))
         if ok:
             s.update(status="ok", last_ok=today, fail_count=0, hidden=False)
-            if https:
-                return s, "repaired", "https added: " + ", ".join(https)
+            if https or notes:
+                return s, "repaired", "; ".join((["https added: " + ", ".join(https)] if https else []) + notes)
             return s, "ok", why
         reasons.append(f"{url} → {why}")
     seen = set(s["urls"])

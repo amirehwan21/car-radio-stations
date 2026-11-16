@@ -1,8 +1,8 @@
 {
  "schema": 1,
- "version": 2,
- "generated_at": "2026-11-16T01:41:29Z",
- "checked_at": "2026-11-16T01:41:29Z",
+ "version": 3,
+ "generated_at": "2026-11-16T09:46:55Z",
+ "checked_at": "2026-11-16T09:46:55Z",
  "min_app_version": 1,
  "default_favourites": [
   "era-fm",
@@ -641,7 +641,7 @@
    "codec": "AAC+",
    "bitrate": 48,
    "now_playing": "icy",
-   "favicon": "http://delimafm.blogspot.com/favicon.ico",
+   "favicon": "https://delimafm.blogspot.com/favicon.ico",
    "logo_shape": "default",
    "gfk_weekly_listeners": 0,
    "gfk_wave": "",
@@ -659,7 +659,8 @@
    "language": "english",
    "tags": "1960s,1970s,1980s,1990s,classic hits",
    "urls": [
-    "https://stream.rcs.revma.com/bn4ex8sbv4uvv"
+    "https://stream.rcs.revma.com/bn4ex8sbv4uvv",
+    "https://stream.rcs.revma.com/bn4ex8sbv4uvv/hls.m3u8"
    ],
    "format": "icy/http",
    "codec": "AAC",
@@ -674,7 +675,7 @@
    "fm": null,
    "status": "ok",
    "hidden": false,
-   "last_ok": "2026-11-15",
+   "last_ok": "2026-11-16",
    "fail_count": 0
   },
   {
@@ -861,7 +862,7 @@
    "codec": "MP3",
    "bitrate": 128,
    "now_playing": "icy",
-   "favicon": "http://www.liveonlineradio.net/wp-content/uploads/2018/02/Alam-MayaFM.jpg",
+   "favicon": "https://www.liveonlineradio.net/wp-content/uploads/2018/02/Alam-MayaFM.jpg",
    "logo_shape": "default",
    "gfk_weekly_listeners": 0,
    "gfk_wave": "",
@@ -1167,7 +1168,8 @@
    "language": "english",
    "tags": "",
    "urls": [
-    "https://stream.rcs.revma.com/488kt4sbv4uvv"
+    "https://stream.rcs.revma.com/488kt4sbv4uvv",
+    "https://stream.rcs.revma.com/488kt4sbv4uvv/hls.m3u8"
    ],
    "format": "icy/http",
    "codec": "AAC",
@@ -1182,7 +1184,7 @@
    "fm": null,
    "status": "ok",
    "hidden": false,
-   "last_ok": "2026-11-15",
+   "last_ok": "2026-11-16",
    "fail_count": 0
   },
   {
@@ -1215,12 +1217,13 @@
    "language": "english",
    "tags": "hot adult contemporary",
    "urls": [
+    "https://stream.rcs.revma.com/q17aka9mtd3vv/hls.m3u8",
     "https://stream.rcs.revma.com/q17aka9mtd3vv"
    ],
-   "format": "icy/http",
+   "format": "hls",
    "codec": "AAC",
    "bitrate": 0,
-   "now_playing": "icy",
+   "now_playing": "hls-id3",
    "favicon": "https://assets-mpa.flyfm.audio/media/Logo/profile_photo_1000x1000-04.jpg",
    "logo_shape": "default",
    "gfk_weekly_listeners": 0,
@@ -1230,7 +1233,7 @@
    "fm": null,
    "status": "ok",
    "hidden": false,
-   "last_ok": "2026-11-15",
+   "last_ok": "2026-11-16",
    "fail_count": 0
   },
   {
@@ -1362,7 +1365,8 @@
    "language": "english",
    "tags": "",
    "urls": [
-    "https://stream.rcs.revma.com/8150ezy4bshvv"
+    "https://stream.rcs.revma.com/8150ezy4bshvv",
+    "https://stream.rcs.revma.com/8150ezy4bshvv/hls.m3u8"
    ],
    "format": "icy/http",
    "codec": "AAC",
@@ -1377,7 +1381,7 @@
    "fm": null,
    "status": "ok",
    "hidden": false,
-   "last_ok": "2026-11-15",
+   "last_ok": "2026-11-16",
    "fail_count": 0
   },
   {
@@ -1626,7 +1630,8 @@
    "language": "malay",
    "tags": "",
    "urls": [
-    "https://stream.rcs.revma.com/axht8yawe1bwv"
+    "https://stream.rcs.revma.com/axht8yawe1bwv",
+    "https://stream.rcs.revma.com/axht8yawe1bwv/hls.m3u8"
    ],
    "format": "icy/http",
    "codec": "AAC",
@@ -1641,7 +1646,7 @@
    "fm": null,
    "status": "ok",
    "hidden": false,
-   "last_ok": "2026-11-15",
+   "last_ok": "2026-11-16",
    "fail_count": 0
   },
   {
@@ -2034,7 +2039,8 @@
    "language": "malay",
    "tags": "",
    "urls": [
-    "https://stream.rcs.revma.com/nzgauqq1v7zuv"
+    "https://stream.rcs.revma.com/nzgauqq1v7zuv",
+    "https://stream.rcs.revma.com/nzgauqq1v7zuv/hls.m3u8"
    ],
    "format": "icy/http",
    "codec": "AAC",
@@ -2049,7 +2055,7 @@
    "fm": null,
    "status": "ok",
    "hidden": false,
-   "last_ok": "2026-11-15",
+   "last_ok": "2026-11-16",
    "fail_count": 0
   },
   {
@@ -2058,7 +2064,8 @@
    "language": "malay",
    "tags": "",
    "urls": [
-    "https://stream.rcs.revma.com/h34x4kgg9hhvv"
+    "https://stream.rcs.revma.com/h34x4kgg9hhvv",
+    "https://stream.rcs.revma.com/h34x4kgg9hhvv/hls.m3u8"
    ],
    "format": "icy/http",
    "codec": "AAC",
@@ -2073,7 +2080,7 @@
    "fm": null,
    "status": "ok",
    "hidden": false,
-   "last_ok": "2026-11-15",
+   "last_ok": "2026-11-16",
    "fail_count": 0
   },
   {
@@ -2082,7 +2089,8 @@
    "language": "english",
    "tags": "",
    "urls": [
-    "https://stream.rcs.revma.com/fxq2n9tbv4uvv"
+    "https://stream.rcs.revma.com/fxq2n9tbv4uvv",
+    "https://stream.rcs.revma.com/fxq2n9tbv4uvv/hls.m3u8"
    ],
    "format": "icy/http",
    "codec": "AAC",
@@ -2097,7 +2105,7 @@
    "fm": null,
    "status": "ok",
    "hidden": false,
-   "last_ok": "2026-11-15",
+   "last_ok": "2026-11-16",
    "fail_count": 0
   },
   {
