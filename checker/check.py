@@ -7,6 +7,9 @@ Rules (car-launcher PROJECT_PLAN §6.5):
   known URL patterns (revma HLS <-> direct, StreamTheWorld AAC <-> MP3 mounts). A candidate is
   accepted only if it passes the same test; it is put first, old URLs are kept after it.
 - Never deletes a station. Failing 3 runs in a row -> hidden; passing again -> unhidden.
+- Every http:// URL whose https:// copy passes gets that copy put just before it: Android apps
+  block plain http by default (seen on the head unit in car-launcher 0.3.2), older app versions
+  included, so https comes first wherever a station offers it.
 - Stations marked "check": "geo" are skipped (streams that refuse non-Malaysian IPs).
 - If more than 20 % of tested stations fail, nothing is written (network or checker problem) and
   the exit code is 2.
@@ -158,6 +161,20 @@ def pattern_candidates(url):
     return [u for u in out if u != url]
 
 
+def prefer_https(s):
+    """Puts a working https:// copy ahead of each http:// URL. Returns the URLs added."""
+    out, added = [], []
+    for u in s["urls"]:
+        if u.startswith("http://"):
+            h = "https://" + u[len("http://"):]
+            if h not in s["urls"] and test_url(h, s.get("format"))[0]:
+                out.append(h)
+                added.append(h)
+        out.append(u)
+    s["urls"] = out
+    return added
+
+
 def check_station(s):
     """Returns (station_after, outcome, detail). outcome: ok | repaired | failing | hidden | skipped."""
     s = copy.deepcopy(s)
@@ -165,10 +182,13 @@ def check_station(s):
     if s.get("check") == "geo":
         return s, "skipped", "geo-restricted, not tested"
     reasons = []
+    https = prefer_https(s)
     for url in s["urls"]:
         ok, why = test_url(url, s.get("format"))
         if ok:
             s.update(status="ok", last_ok=today, fail_count=0, hidden=False)
+            if https:
+                return s, "repaired", "https added: " + ", ".join(https)
             return s, "ok", why
         reasons.append(f"{url} → {why}")
     seen = set(s["urls"])
